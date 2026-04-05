@@ -17,12 +17,99 @@ def __():
 @app.cell
 def __(mo):
     mo.Html("""
-    <div style="padding:40px 0 24px;border-bottom:1px solid #1e293b;margin-bottom:8px">
-        <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;color:#475569;text-transform:uppercase">marimo · interactive</span>
-        <h1 style="margin:8px 0 6px;font-size:2.4rem;font-weight:700;letter-spacing:-0.03em;color:#f1f5f9;font-family:'JetBrains Mono',monospace">
+    <style>
+        :root {
+            --space-sm: 8px;
+            --space-md: 14px;
+            --space-lg: 20px;
+            --space-xl: 32px;
+            --space-2xl: 40px;
+            --radius-lg: 14px;
+            --surface-1: #ffffff;
+            --surface-2: #f8fafc;
+            --line-soft: #e2e8f0;
+        }
+
+        .sa-hero {
+            animation: sa-rise 500ms cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+
+        .sa-meta {
+            animation: sa-rise 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+
+        .sa-panel {
+            animation: sa-rise 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+
+        .sa-heading {
+            margin-top: var(--space-2xl);
+            margin-bottom: 4px;
+            font-family: 'Space Grotesk', 'Avenir Next', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            color: #0f172a;
+            letter-spacing: 0.01em;
+            animation: sa-rise 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+
+        .sa-sub {
+            color: #64748b;
+            font-weight: 500;
+            font-size: 12px;
+        }
+
+        .sa-chart {
+            animation: sa-rise 460ms cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+
+        .sa-footer {
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        @keyframes sa-rise {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes sa-pop {
+            from {
+                opacity: 0;
+                transform: translateY(8px) scale(0.98);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @media (max-width: 760px) {
+            .sa-hero {
+                padding-left: var(--space-md);
+                padding-right: var(--space-md);
+            }
+        }
+    </style>
+    """)
+    return
+
+
+@app.cell
+def __(mo):
+    mo.Html("""
+    <div class="sa-hero" style="padding:40px 0 24px;border-bottom:1px solid #e2e8f0;margin-bottom:8px;background:linear-gradient(110deg,#fff7ed 0%,#f0fdfa 45%,#f8fafc 100%);border-radius:16px 16px 12px 12px">
+        <span style="font-family:'Space Grotesk','Avenir Next',sans-serif;font-size:11px;letter-spacing:0.14em;color:#0f766e;text-transform:uppercase;font-weight:700">marimo · interactive</span>
+        <h1 style="margin:8px 0 6px;font-size:2.4rem;font-weight:800;letter-spacing:-0.03em;color:#0f172a;font-family:'Space Grotesk','Avenir Next',sans-serif">
             Search Algorithm Visualizer
         </h1>
-        <p style="margin:0;color:#64748b;font-size:14px;font-family:'JetBrains Mono',monospace">
+        <p style="margin:0;color:#475569;font-size:14px;font-family:'IBM Plex Sans','Segoe UI',sans-serif">
             Five algorithms · reactive cells · zero re-runs
         </p>
     </div>
@@ -155,17 +242,17 @@ def __(algo_choice, arr, target):
 def __(mo, steps, arr, target, algo_choice):
     step_slider = mo.ui.slider(start=0, stop=max(0, len(steps) - 1), step=1, value=len(steps) - 1, label="Step", show_value=True)
     mo.Html(f"""
-    <div style="margin-top:32px;margin-bottom:4px;display:flex;align-items:center;justify-content:space-between">
+    <div class="sa-meta" style="margin-top:32px;margin-bottom:4px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap">
         <div>
-            <span style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;color:#e2e8f0">{algo_choice.selected_key}</span>
-            <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#475569;margin-left:16px">
-                target <b style="color:#fbbf24">{target}</b> &nbsp;·&nbsp; n={len(arr)} &nbsp;·&nbsp; {len(steps)} steps
+            <span style="font-family:'Space Grotesk','Avenir Next',sans-serif;font-size:13px;font-weight:700;color:#1e293b">{algo_choice.selected_key}</span>
+            <span style="font-family:'IBM Plex Sans','Segoe UI',sans-serif;font-size:12px;color:#64748b;margin-left:16px">
+                target <b style="color:#ea580c">{target}</b> &nbsp;·&nbsp; n={len(arr)} &nbsp;·&nbsp; {len(steps)} steps
             </span>
         </div>
-        <div style="display:flex;gap:6px;font-size:11px;font-family:'JetBrains Mono',monospace">
-            <span style="padding:2px 10px;border-radius:999px;background:#1e3a5f;color:#60a5fa">checked</span>
-            <span style="padding:2px 10px;border-radius:999px;background:#422006;color:#fbbf24">current</span>
-            <span style="padding:2px 10px;border-radius:999px;background:#14532d;color:#4ade80">found</span>
+        <div style="display:flex;gap:6px;font-size:11px;font-family:'IBM Plex Sans','Segoe UI',sans-serif;font-weight:600">
+            <span style="padding:2px 10px;border-radius:999px;background:#dbeafe;color:#1d4ed8">checked</span>
+            <span style="padding:2px 10px;border-radius:999px;background:#ffedd5;color:#c2410c">current</span>
+            <span style="padding:2px 10px;border-radius:999px;background:#dcfce7;color:#15803d">found</span>
         </div>
     </div>
     """)
@@ -191,32 +278,33 @@ def __(step_slider, steps, arr, target, mo):
     _cells = []
     for _i, _v in enumerate(arr):
         if _i == _result and _found:
-            _bg, _fg, _bd, _gl = "#166534", "#4ade80", "1px solid #16a34a", "✓"
+            _bg, _fg, _bd, _gl = "#ecfdf3", "#166534", "1px solid #22c55e", "✓"
         elif _i == _current:
-            _bg, _fg, _bd, _gl = "#422006", "#fbbf24", "1px solid #d97706", "→"
+            _bg, _fg, _bd, _gl = "#fff7ed", "#9a3412", "1px solid #f97316", "→"
         elif _i in _checked:
-            _bg, _fg, _bd, _gl = "#1e3a5f", "#60a5fa", "1px solid #2563eb", ""
+            _bg, _fg, _bd, _gl = "#eff6ff", "#1e40af", "1px solid #60a5fa", ""
         else:
-            _bg, _fg, _bd, _gl = "#0f172a", "#334155", "1px solid #1e293b", ""
+            _bg, _fg, _bd, _gl = "#ffffff", "#475569", "1px solid #e2e8f0", ""
         _ant = f'<div style="position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-size:11px">🐜</div>' if (_ants and _i in _ants) else ""
-        _cells.append(f'<div style="position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;width:46px;height:54px;background:{_bg};border:{_bd};border-radius:8px;font-family:\'JetBrains Mono\',monospace;color:{_fg}">{_ant}<span style="font-size:9px;opacity:0.45;margin-bottom:1px">{_i}</span><span style="font-size:13px;font-weight:700">{_v}</span><span style="font-size:9px;margin-top:1px;opacity:0.8">{_gl}</span></div>')
+        _delay = min(0.3, _i * 0.012)
+        _cells.append(f'<div style="position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;width:46px;height:54px;background:{_bg};border:{_bd};border-radius:10px;font-family:\'IBM Plex Sans\',\'Segoe UI\',sans-serif;color:{_fg};box-shadow:0 2px 8px rgba(15,23,42,0.04);animation:sa-pop 380ms cubic-bezier(0.22,1,0.36,1) both;animation-delay:{_delay:.3f}s">{_ant}<span style="font-size:9px;opacity:0.5;margin-bottom:1px">{_i}</span><span style="font-size:13px;font-weight:700">{_v}</span><span style="font-size:9px;margin-top:1px;opacity:0.85">{_gl}</span></div>')
 
     _pheromone_html = ""
     if "pheromone" in _s:
         _ph   = _s["pheromone"]
         _mxph = max(_ph) if _ph else 1
-        _bars = "".join(f'<div style="width:5px;height:{int(36*p/_mxph)+3}px;background:rgba(251,191,36,{0.2+0.8*p/_mxph});border-radius:2px 2px 0 0" title="{i}:{p}"></div>' for i, p in enumerate(_ph))
-        _pheromone_html = f'<div style="margin-top:14px;padding:12px 16px;background:#0f172a;border:1px solid #1e293b;border-radius:8px"><div style="font-family:\'JetBrains Mono\',monospace;font-size:10px;color:#475569;margin-bottom:6px;letter-spacing:0.08em;text-transform:uppercase">Pheromone</div><div style="display:flex;align-items:flex-end;gap:2px;height:42px">{_bars}</div></div>'
+        _bars = "".join(f'<div style="width:5px;height:{int(36*p/_mxph)+3}px;background:rgba(13,148,136,{0.2+0.8*p/_mxph});border-radius:2px 2px 0 0" title="{i}:{p}"></div>' for i, p in enumerate(_ph))
+        _pheromone_html = f'<div style="margin-top:14px;padding:12px 16px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px"><div style="font-family:\'IBM Plex Sans\',\'Segoe UI\',sans-serif;font-size:10px;color:#0f766e;margin-bottom:6px;letter-spacing:0.08em;text-transform:uppercase;font-weight:700">Pheromone</div><div style="display:flex;align-items:flex-end;gap:2px;height:42px">{_bars}</div></div>'
 
-    _sc = "#4ade80" if _found else "#fbbf24"
+    _sc = "#16a34a" if _found else "#ea580c"
     _st = f"Found {target} at index {_result}" if _found else _s.get("label", "")
-    mo.Html(f'<div style="background:#0a0f1a;border:1px solid #1e293b;border-radius:12px;padding:20px;overflow-x:auto"><div style="display:flex;flex-wrap:wrap;gap:4px;min-height:72px;align-items:flex-end">{"".join(_cells)}</div>{_pheromone_html}<div style="margin-top:14px;padding:8px 14px;border-left:2px solid {_sc};border-radius:0 6px 6px 0;background:#0f172a;font-family:\'JetBrains Mono\',monospace;font-size:12px;color:{_sc}">{_html.escape(_st)}</div></div>')
+    mo.Html(f'<div class="sa-panel" style="background:linear-gradient(180deg,#ffffff 0%,#f8fafc 100%);border:1px solid #e2e8f0;border-radius:14px;padding:20px;overflow-x:auto;box-shadow:0 8px 28px rgba(15,23,42,0.06)"><div style="display:flex;flex-wrap:wrap;gap:6px;min-height:72px;align-items:flex-end">{"".join(_cells)}</div>{_pheromone_html}<div style="margin-top:14px;padding:8px 14px;border-left:3px solid {_sc};border-radius:0 8px 8px 0;background:#ffffff;font-family:\'IBM Plex Sans\',\'Segoe UI\',sans-serif;font-size:12px;color:{_sc};font-weight:600">{_html.escape(_st)}</div></div>')
     return
 
 
 @app.cell
 def __(mo):
-    mo.Html('<div style="margin-top:40px;margin-bottom:4px;font-family:\'JetBrains Mono\',monospace;font-size:13px;font-weight:600;color:#e2e8f0">Benchmark <span style="color:#475569;font-weight:400;font-size:12px">· avg of 30 runs per n</span></div>')
+    mo.Html('<div class="sa-heading">Benchmark <span class="sa-sub">· avg of 30 runs per n</span></div>')
     return
 
 
@@ -245,7 +333,7 @@ def __(array_size, linear_search, binary_search, fibonacci_search, bst_search, a
 
 @app.cell
 def __(bench_results, bench_sizes, mo, math):
-    _colors = {"Linear": "#ef4444", "Binary": "#3b82f6", "Fibonacci": "#a855f7", "BST": "#22c55e", "ACO": "#f59e0b"}
+    _colors = {"Linear": "#ef4444", "Binary": "#2563eb", "Fibonacci": "#0d9488", "BST": "#16a34a", "ACO": "#ea580c"}
     _W, _H, _pl, _pr, _pt, _pb = 700, 300, 56, 100, 20, 44
     _all  = [t for d in bench_results.values() for t in d.values()]
     _maxt = max(_all) * 1.15
@@ -257,12 +345,12 @@ def __(bench_results, bench_sizes, mo, math):
     _g = ""
     for _t2 in [0, _maxt*0.33, _maxt*0.66, _maxt]:
         _gy = _yp(_t2)
-        _g += f'<line x1="{_pl}" y1="{_gy:.1f}" x2="{_W-_pr}" y2="{_gy:.1f}" stroke="#1e293b" stroke-width="1"/>'
-        _g += f'<text x="{_pl-8}" y="{_gy+4:.1f}" text-anchor="end" fill="#334155" font-size="10" font-family="JetBrains Mono,monospace">{_t2:.1f}</text>'
+        _g += f'<line x1="{_pl}" y1="{_gy:.1f}" x2="{_W-_pr}" y2="{_gy:.1f}" stroke="#dbeafe" stroke-width="1"/>'
+        _g += f'<text x="{_pl-8}" y="{_gy+4:.1f}" text-anchor="end" fill="#64748b" font-size="10" font-family="IBM Plex Sans,Segoe UI,sans-serif">{_t2:.1f}</text>'
     for _n2 in bench_sizes:
         _gx = _xp(_n2)
-        _g += f'<line x1="{_gx:.1f}" y1="{_pt}" x2="{_gx:.1f}" y2="{_H-_pb}" stroke="#1e293b" stroke-width="1"/>'
-        _g += f'<text x="{_gx:.1f}" y="{_H-_pb+14}" text-anchor="middle" fill="#334155" font-size="10" font-family="JetBrains Mono,monospace">{_n2}</text>'
+        _g += f'<line x1="{_gx:.1f}" y1="{_pt}" x2="{_gx:.1f}" y2="{_H-_pb}" stroke="#e2e8f0" stroke-width="1"/>'
+        _g += f'<text x="{_gx:.1f}" y="{_H-_pb+14}" text-anchor="middle" fill="#64748b" font-size="10" font-family="IBM Plex Sans,Segoe UI,sans-serif">{_n2}</text>'
 
     _p = ""
     for _nm, _dat in bench_results.items():
@@ -271,21 +359,21 @@ def __(bench_results, bench_sizes, mo, math):
         _col = _colors[_nm]
         _p  += f'<path d="{_d}" fill="none" stroke="{_col}" stroke-width="2" stroke-linejoin="round" opacity="0.9"/>'
         for _px, _py in _pts:
-            _p += f'<circle cx="{_px:.1f}" cy="{_py:.1f}" r="3.5" fill="{_col}" stroke="#0a0f1a" stroke-width="1.5"/>'
+            _p += f'<circle cx="{_px:.1f}" cy="{_py:.1f}" r="3.5" fill="{_col}" stroke="#f8fafc" stroke-width="1.5"/>'
 
     _leg = ""
     for _li, (_ln, _lc) in enumerate(_colors.items()):
         _ly = _pt + _li * 22
         _leg += f'<rect x="{_W-_pr+12}" y="{_ly}" width="10" height="10" rx="3" fill="{_lc}"/>'
-        _leg += f'<text x="{_W-_pr+26}" y="{_ly+9}" fill="{_lc}" font-size="11" font-family="JetBrains Mono,monospace">{_ln}</text>'
+        _leg += f'<text x="{_W-_pr+26}" y="{_ly+9}" fill="#334155" font-size="11" font-family="IBM Plex Sans,Segoe UI,sans-serif">{_ln}</text>'
 
-    mo.Html(f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {_W} {_H}" style="background:#0a0f1a;border:1px solid #1e293b;border-radius:12px;width:100%">{_g}{_p}{_leg}<text x="{_pl-44}" y="{_H//2}" text-anchor="middle" fill="#475569" font-size="10" font-family="JetBrains Mono,monospace" transform="rotate(-90,{_pl-44},{_H//2})">μs</text><text x="{_pl+(_W-_pl-_pr)//2}" y="{_H-4}" text-anchor="middle" fill="#475569" font-size="10" font-family="JetBrains Mono,monospace">n (log scale)</text></svg>')
+    mo.Html(f'<svg class="sa-chart" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {_W} {_H}" style="background:linear-gradient(180deg,#ffffff 0%,#f8fafc 100%);border:1px solid #e2e8f0;border-radius:14px;width:100%;box-shadow:0 6px 22px rgba(15,23,42,0.06)">{_g}{_p}{_leg}<text x="{_pl-44}" y="{_H//2}" text-anchor="middle" fill="#64748b" font-size="10" font-family="IBM Plex Sans,Segoe UI,sans-serif" transform="rotate(-90,{_pl-44},{_H//2})">μs</text><text x="{_pl+(_W-_pl-_pr)//2}" y="{_H-4}" text-anchor="middle" fill="#64748b" font-size="10" font-family="IBM Plex Sans,Segoe UI,sans-serif">n (log scale)</text></svg>')
     return
 
 
 @app.cell
 def __(mo):
-    mo.Html('<div style="margin-top:40px;margin-bottom:4px;font-family:\'JetBrains Mono\',monospace;font-size:13px;font-weight:600;color:#e2e8f0">Complexity <span style="color:#475569;font-weight:400;font-size:12px">· theoretical growth</span></div>')
+    mo.Html('<div class="sa-heading">Complexity <span class="sa-sub">· theoretical growth</span></div>')
     return
 
 
@@ -293,7 +381,7 @@ def __(mo):
 def __(mo, math):
     _ns2 = [2**i for i in range(1, 11)]
     _curves = {"O(1)": [(n,1) for n in _ns2], "O(log n)": [(n,math.log2(n)) for n in _ns2], "O(n)": [(n,n) for n in _ns2], "O(n log n)": [(n,n*math.log2(n)) for n in _ns2], "O(n²)": [(n,n*n) for n in _ns2]}
-    _cols2  = {"O(1)": "#22c55e", "O(log n)": "#3b82f6", "O(n)": "#f59e0b", "O(n log n)": "#a855f7", "O(n²)": "#ef4444"}
+    _cols2  = {"O(1)": "#16a34a", "O(log n)": "#2563eb", "O(n)": "#ea580c", "O(n log n)": "#0d9488", "O(n²)": "#ef4444"}
     _W2, _H2, _pl2, _pr2, _pt2, _pb2 = 700, 260, 56, 90, 16, 40
     _maxn2  = max(_ns2)
     _maxy2  = max(n*math.log2(n) for n in _ns2) * 1.08
@@ -304,26 +392,26 @@ def __(mo, math):
     _g2 = ""
     for _tick2 in [0, _maxy2*0.33, _maxy2*0.66, _maxy2]:
         _gy2 = _yp2(_tick2)
-        _g2 += f'<line x1="{_pl2}" y1="{_gy2:.1f}" x2="{_W2-_pr2}" y2="{_gy2:.1f}" stroke="#1e293b" stroke-width="1"/>'
-        _g2 += f'<text x="{_pl2-8}" y="{_gy2+4:.1f}" text-anchor="end" fill="#334155" font-size="10" font-family="JetBrains Mono,monospace">{int(_tick2)}</text>'
+        _g2 += f'<line x1="{_pl2}" y1="{_gy2:.1f}" x2="{_W2-_pr2}" y2="{_gy2:.1f}" stroke="#dbeafe" stroke-width="1"/>'
+        _g2 += f'<text x="{_pl2-8}" y="{_gy2+4:.1f}" text-anchor="end" fill="#64748b" font-size="10" font-family="IBM Plex Sans,Segoe UI,sans-serif">{int(_tick2)}</text>'
     for _n3 in _ns2[::2]:
         _gx2 = _xp2(_n3)
-        _g2 += f'<text x="{_gx2:.1f}" y="{_H2-_pb2+13}" text-anchor="middle" fill="#334155" font-size="10" font-family="JetBrains Mono,monospace">{_n3}</text>'
+        _g2 += f'<text x="{_gx2:.1f}" y="{_H2-_pb2+13}" text-anchor="middle" fill="#64748b" font-size="10" font-family="IBM Plex Sans,Segoe UI,sans-serif">{_n3}</text>'
 
     _p2 = ""
     for _cn2, _cpts2 in _curves.items():
         _d2 = " ".join(f"{'M' if i==0 else 'L'}{_xp2(n):.1f},{_yp2(y):.1f}" for i,(n,y) in enumerate(_cpts2))
         _p2 += f'<path d="{_d2}" fill="none" stroke="{_cols2[_cn2]}" stroke-width="2" stroke-linejoin="round"/>'
         _ex2, _ey2 = _xp2(_cpts2[-1][0]), _yp2(_cpts2[-1][1])
-        _p2 += f'<text x="{_ex2+4}" y="{_ey2+4:.1f}" fill="{_cols2[_cn2]}" font-size="10" font-family="JetBrains Mono,monospace">{_cn2}</text>'
+        _p2 += f'<text x="{_ex2+4}" y="{_ey2+4:.1f}" fill="#334155" font-size="10" font-family="IBM Plex Sans,Segoe UI,sans-serif">{_cn2}</text>'
 
-    mo.Html(f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {_W2} {_H2}" style="background:#0a0f1a;border:1px solid #1e293b;border-radius:12px;width:100%">{_g2}{_p2}<text x="{_pl2+(_W2-_pl2-_pr2)//2}" y="{_H2-4}" text-anchor="middle" fill="#475569" font-size="10" font-family="JetBrains Mono,monospace">n (log scale)</text></svg>')
+    mo.Html(f'<svg class="sa-chart" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {_W2} {_H2}" style="background:linear-gradient(180deg,#ffffff 0%,#f8fafc 100%);border:1px solid #e2e8f0;border-radius:14px;width:100%;box-shadow:0 6px 22px rgba(15,23,42,0.06)">{_g2}{_p2}<text x="{_pl2+(_W2-_pl2-_pr2)//2}" y="{_H2-4}" text-anchor="middle" fill="#64748b" font-size="10" font-family="IBM Plex Sans,Segoe UI,sans-serif">n (log scale)</text></svg>')
     return
 
 
 @app.cell
 def __(mo):
-    mo.Html('<div style="margin-top:40px;margin-bottom:4px;font-family:\'JetBrains Mono\',monospace;font-size:13px;font-weight:600;color:#e2e8f0">Comparison</div>')
+    mo.Html('<div class="sa-heading">Comparison</div>')
     return
 
 
@@ -362,8 +450,8 @@ def __(mo, algo_choice):
 @app.cell
 def __(mo):
     mo.Html("""
-    <div style="margin-top:48px;padding:20px 0;border-top:1px solid #1e293b;font-family:'JetBrains Mono',monospace;font-size:11px;color:#334155;display:flex;justify-content:space-between">
-        <span>Built with <a href="https://marimo.io" style="color:#475569;text-decoration:underline">marimo</a> · every cell is reactive · no re-runs needed</span>
+    <div class="sa-footer" style="margin-top:48px;padding:20px 0;border-top:1px solid #e2e8f0;font-family:'IBM Plex Sans','Segoe UI',sans-serif;font-size:11px;color:#64748b;display:flex;justify-content:space-between">
+        <span>Built with <a href="https://marimo.io" style="color:#0f766e;text-decoration:underline">marimo</a> · every cell is reactive · no re-runs needed</span>
         <span>marimo run search_visualizer.py</span>
     </div>
     """)
