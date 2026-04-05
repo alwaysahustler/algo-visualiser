@@ -447,16 +447,6 @@ def __(mo, algo_choice):
     return
 
 
-@app.cell
-def __(mo):
-    mo.Html("""
-    <div class="sa-footer" style="margin-top:48px;padding:20px 0;border-top:1px solid #e2e8f0;font-family:'IBM Plex Sans','Segoe UI',sans-serif;font-size:11px;color:#64748b;display:flex;justify-content:space-between">
-        <span>Built with <a href="https://marimo.io" style="color:#0f766e;text-decoration:underline">marimo</a> · every cell is reactive · no re-runs needed</span>
-        <span>marimo run search_visualizer.py</span>
-    </div>
-    """)
-    return
-
 
 if __name__ == "__main__":
     app.run()
